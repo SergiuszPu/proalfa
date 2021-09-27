@@ -9,22 +9,17 @@ import { User } from '../types';
 export class silevisSelectComponent {
   @State() selectedUser;
 
-  @Listen('silevisSelectActivated') 
-  silevisSelectActivated(event: CustomEvent<User>) {    
+  @Listen('silevisSelectActivated')
+  silevisSelectActivated(event: CustomEvent<User>) {
     return (this.selectedUser = event.detail);
   }
 
   render() {
     return (
       <div>
-        <silevis-select-option></silevis-select-option>
-        {this.selectedUser?.map(selected => (
-          <div class="selected">
-            <img src={selected.url}></img>
-            <h1>{selected.name} {selected.lastname} {selected.age}</h1>
-          </div>
-        ))}
+        <slot />
       </div>
     );
   }
 }
+

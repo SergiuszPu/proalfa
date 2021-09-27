@@ -3,32 +3,20 @@
 }
 
 .options {
-  width: 100%;
+  width: 50%;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-}
-label {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 15px;
-  font-size: 20px;
-  font-weight: bold;
-}
-select {
-  width: 300px;
-  font-size: 25px;
-  text-align-last:center;
+  background-color: bisque;
+  margin: 10px;
+  padding: 10px;
 }
 
-option {
-  text-align: center;
+h1 {
+  margin-left: 40px;
+  font-size: 40px;
 }
 
-input {
-  width: 300px;
-  font-size: 25px;
+.active {
+  background-color: black;
 }
