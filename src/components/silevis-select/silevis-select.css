@@ -12,6 +12,33 @@
   font-size: 50px;
 }
 
+.options {
+  width: 50%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(250, 241, 231);
+  margin: 10px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.arrow {
+  font-size: 50px;
+  border-radius: 50%;
+  background-color: rgb(255, 253, 249);
+  padding: 20px;
+}
+
 h1 {
   margin-left: 30px;
+}
+
+input {
+  width: 50%;
+  text-align: center;
+  height: 50px;
+  font-size: 30px;
+  margin-left: 14px
+
 }

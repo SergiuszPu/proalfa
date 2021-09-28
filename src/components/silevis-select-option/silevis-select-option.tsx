@@ -1,4 +1,4 @@
-import { Component, h, Event, EventEmitter, State } from '@stencil/core';
+import { Component, h, Event, EventEmitter, Prop } from '@stencil/core';
 
 @Component({
   tag: 'silevis-select-option',
@@ -6,23 +6,28 @@ import { Component, h, Event, EventEmitter, State } from '@stencil/core';
   shadow: true,
 })
 export class SilevisSelectOption {
+  @Event({ eventName: 'silevisSelectActivated' }) silevisSelectActivated: EventEmitter<any>;
+  @Prop() active: boolean;
+  @Prop() hide: boolean;
 
-  @State() selectUser: object;
-  @State() selected: string | number;
-  @State() value: string;
-  @Event({ eventName: 'silevisSelectActivated' }) silevisSelectActivated: EventEmitter<Object>;
-  @State() openTrue: boolean =true
-
+  handleChange() {
+    this.active = !this.active;
+    this.silevisSelectActivated.emit();
+  }
 
   render() {
     return (
-      <div class={{active: this.openTrue}}>
-        <div class="options">
-          <slot name="image" />
-          <h1>
-            <slot />
-          </h1>
-        </div>
+      <div
+        onClick={() => this.handleChange()}
+        class={{
+          options: true,
+          active: this.active,
+          hide: this.hide,
+        }}
+      >
+        <slot name="image" />
+        <h1><slot />
+        </h1>
       </div>
     );
   }
