@@ -17,12 +17,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: rgb(250, 241, 231);
+  background-color: rgb(231, 154, 66);
   margin: 10px;
   padding: 10px;
   cursor: pointer;
+  border-radius: 50px;
 }
-
 .arrow {
   font-size: 50px;
   border-radius: 50%;
@@ -39,6 +39,7 @@ input {
   text-align: center;
   height: 50px;
   font-size: 30px;
-  margin-left: 14px
+  margin-left: 14px;
+  border-radius: 50px;
 
 }

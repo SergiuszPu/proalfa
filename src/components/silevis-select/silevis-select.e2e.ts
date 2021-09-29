@@ -3,7 +3,7 @@ import { newE2EPage } from '@stencil/core/testing';
 describe('silevis-select', () => {
   const selectSilevis = `
   <silevis-select>
-  <silevis-select-option active >
+  <silevis-select-option active>
     <img slot="image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUgoHCc0rNp3hBP7yHkhIEkev-tVfaM4GrMQ&usqp=CAU" />
     Sergiusz Pu, 35
   </silevis-select-option>
@@ -36,7 +36,7 @@ describe('silevis-select', () => {
 
     const selectOptions = await page.findAll('silevis-select-option');
     expect(selectOptions).toHaveLength(3);
-    
+
     selectOptions.forEach(option => {
       expect(option).toHaveClass('hydrated');
     });
@@ -50,7 +50,7 @@ describe('silevis-select', () => {
     expect(selectOptions).toHaveLength(0);
   });
 
-  it('check hide option', async () => {
+  it('should not have hide option', async () => {
     const page = await newE2EPage();
     await page.setContent(selectSilevis);
 
@@ -64,17 +64,21 @@ describe('silevis-select', () => {
     });
   });
 
-  it('check active property', async () => {
+  it('have attribute avtive', async () => {
     const page = await newE2EPage();
     await page.setContent(selectSilevis);
 
-    const options = await page.findAll('silevis-select-option');
+    const component = await page.find('silevis-select-option');
+    expect(component).toHaveAttribute('active');
+  });
+
+  it('event was clicked', async () => {
+    const page = await newE2EPage();
     
-    options.forEach(option => {
-      console.log(option);
-      
-      expect(option[0]).toHaveClass('active');
-    });
+
+    const changeEvent = await page.spyOnEvent('silevisSelectActivated');
+
+    await page.waitForChanges();
+    expect(changeEvent).toHaveFirstReceivedEventDetail(true);
   });
 });
-

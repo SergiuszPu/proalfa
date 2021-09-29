@@ -2,6 +2,12 @@
   display: block;
 }
 
+::slotted(img) {
+  max-height: 150px;
+  max-width: 100px;
+  border-radius: 20%;
+}
+
 .options {
   width: 50%;
   display: flex;
@@ -11,7 +17,9 @@
   margin: 10px;
   padding: 10px;
   cursor: pointer;
+  border-radius: 12px;
 }
+
 .user-select {
   width: 50%;
   display: flex;
@@ -26,17 +34,6 @@
 h1 {
   margin-left: 40px;
   font-size: 40px;
-}
-
-.active {
-  background-color: bisque;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.hide {
-  display: none;
 }
 
 .arrow {
@@ -54,4 +51,12 @@ h1 {
   background-color: blue;
   margin: 10px;
   padding: 10px;
+}
+
+.active {
+  background-color: bisque;
+}
+
+.hide {
+  display: none;
 }

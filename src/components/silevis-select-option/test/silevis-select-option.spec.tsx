@@ -7,14 +7,14 @@
 //       components: [SilevisSelectOption],
 //       html: `<silevis-select-option></silevis-select-option>`,
 //     });
-//     // console.log(page.root);
-    
-//     // expect(page.root).toEqualHtml(`
-//     //   <silevis-select-option>
-//     //     <mock:shadow-root>
-//     //       <slot></slot>
-//     //     </mock:shadow-root>
-//     //   </silevis-select-option>
-//     // `);
+
+//     expect(page.root).toEqualHtml(`
+//       <silevis-select-option class="options">
+//         <mock:shadow-root>
+//           <slot name="image"></slot>
+//           <slot>slot/>
+//         </mock:shadow-root>
+//       </silevis-select-option>
+//     `);
 //   });
 // });

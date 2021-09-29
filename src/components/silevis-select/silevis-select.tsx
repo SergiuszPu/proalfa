@@ -1,4 +1,4 @@
-import { Component, h, State, Listen } from '@stencil/core';
+import { Component, h, State, Listen, Element } from '@stencil/core';
 
 @Component({
   tag: 'silevis-select',
@@ -9,10 +9,10 @@ export class SilevisSelectComponent {
   @State() selectedUser: string
   @State() active = true;
   @State() hide = false
-  @State() toggle: boolean = true;
+  @State() toggle = true;
 
   private slottedElements: HTMLElement[] = [];
-
+  
   @Listen('silevisSelectActivated')
   silevisSelectActivated(event: CustomEvent<any>) {
     this.slottedElements.filter(slot => {
@@ -35,14 +35,14 @@ export class SilevisSelectComponent {
   searchUser(event) {
     this.selectedUser = event.target.value.toLowerCase();
     this.slottedElements.filter(slot => {
-      if (!slot.innerText.toLowerCase().includes(this.selectedUser)) {
+      if ( !/\d/.test(this.selectedUser) && !slot.innerText.toLowerCase().includes(this.selectedUser)) {
         slot.setAttribute('hide', 'true')
       } else {
         slot.setAttribute('hide', 'false')
       }
     });
   }
-
+  
   onToggle() {
     this.toggle = !this.toggle;
   }
@@ -51,7 +51,7 @@ export class SilevisSelectComponent {
     if (this.toggle) {
       return (
         <div class="options">
-          <h1>Name, Lastname</h1>
+          <h1>Select User</h1>
           <div class="arrow" onClick={() => this.onToggle()}>
             &#8595;
           </div>
