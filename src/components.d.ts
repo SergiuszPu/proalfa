@@ -9,8 +9,8 @@ export namespace Components {
     interface SilevisSelect {
     }
     interface SilevisSelectOption {
-        "active": boolean;
-        "hide": boolean;
+    }
+    interface SlotTest {
     }
 }
 declare global {
@@ -26,22 +26,30 @@ declare global {
         prototype: HTMLSilevisSelectOptionElement;
         new (): HTMLSilevisSelectOptionElement;
     };
+    interface HTMLSlotTestElement extends Components.SlotTest, HTMLStencilElement {
+    }
+    var HTMLSlotTestElement: {
+        prototype: HTMLSlotTestElement;
+        new (): HTMLSlotTestElement;
+    };
     interface HTMLElementTagNameMap {
         "silevis-select": HTMLSilevisSelectElement;
         "silevis-select-option": HTMLSilevisSelectOptionElement;
+        "slot-test": HTMLSlotTestElement;
     }
 }
 declare namespace LocalJSX {
     interface SilevisSelect {
     }
     interface SilevisSelectOption {
-        "active"?: boolean;
-        "hide"?: boolean;
-        "onSilevisSelectActivated"?: (event: CustomEvent<any>) => void;
+        "onSilevisSelectActivated"?: (event: CustomEvent<Object>) => void;
+    }
+    interface SlotTest {
     }
     interface IntrinsicElements {
         "silevis-select": SilevisSelect;
         "silevis-select-option": SilevisSelectOption;
+        "slot-test": SlotTest;
     }
 }
 export { LocalJSX as JSX };
@@ -50,6 +58,7 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "silevis-select": LocalJSX.SilevisSelect & JSXBase.HTMLAttributes<HTMLSilevisSelectElement>;
             "silevis-select-option": LocalJSX.SilevisSelectOption & JSXBase.HTMLAttributes<HTMLSilevisSelectOptionElement>;
+            "slot-test": LocalJSX.SlotTest & JSXBase.HTMLAttributes<HTMLSlotTestElement>;
         }
     }
 }

@@ -1,77 +1,30 @@
-import { Component, h, State, Listen, Element } from '@stencil/core';
+import { Component, h, Listen, State } from '@stencil/core';
+import { User } from '../types';
 
 @Component({
   tag: 'silevis-select',
   styleUrl: 'silevis-select.css',
   shadow: true,
 })
-export class SilevisSelectComponent {
-  @State() selectedUser: string
-  @State() active = true;
-  @State() hide = false
-  @State() toggle = true;
+export class silevisSelectComponent {
+  @State() selectedUser;
 
-  private slottedElements: HTMLElement[] = [];
-  
-  @Listen('silevisSelectActivated')
-  silevisSelectActivated(event: CustomEvent<any>) {
-    this.slottedElements.filter(slot => {
-      slot.setAttribute('active', 'false');
-      if (slot === event.target) {
-        slot.setAttribute('active', 'true');
-      }
-    });
-  }
-
-  handleSlotChange = (event: Event) => {
-    if (!(event.target instanceof HTMLSlotElement)) {
-      return;
-    }
-    this.slottedElements = event.target.assignedElements().filter((item: Element): item is HTMLElement => {
-      return item instanceof HTMLElement;
-    });
-  };
-
-  searchUser(event) {
-    this.selectedUser = event.target.value.toLowerCase();
-    this.slottedElements.filter(slot => {
-      if ( !/\d/.test(this.selectedUser) && !slot.innerText.toLowerCase().includes(this.selectedUser)) {
-        slot.setAttribute('hide', 'true')
-      } else {
-        slot.setAttribute('hide', 'false')
-      }
-    });
-  }
-  
-  onToggle() {
-    this.toggle = !this.toggle;
+  @Listen('silevisSelectActivated') 
+  silevisSelectActivated(event: CustomEvent<User>) {    
+    return (this.selectedUser = event.detail);
   }
 
   render() {
-    if (this.toggle) {
-      return (
-        <div class="options">
-          <h1>Select User</h1>
-          <div class="arrow" onClick={() => this.onToggle()}>
-            &#8595;
+    return (
+      <div>
+        <silevis-select-option></silevis-select-option>
+        {this.selectedUser?.map(selected => (
+          <div class="selected">
+            <img src={selected.url}></img>
+            <h1>{selected.name} {selected.lastname} {selected.age}</h1>
           </div>
-        </div>
-      );
-    } else {
-      return (
-        <div>
-          <div class="options">
-            <h1>------------------</h1>
-            <div class="arrow" onClick={() => this.onToggle()}>
-              &#8593;
-            </div>
-          </div>
-          <input type="text" value={this.selectedUser} onInput={event => this.searchUser(event)} />
-          <slot onSlotchange={this.handleSlotChange}>
-            <h1>there is no option</h1>
-          </slot>
-        </div>
-      );
-    }
+        ))}
+      </div>
+    );
   }
 }
