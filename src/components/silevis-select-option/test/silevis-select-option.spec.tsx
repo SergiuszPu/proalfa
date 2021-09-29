@@ -18,3 +18,5 @@
 //     `);
 //   });
 // });
+
+// TODO te testy mozna pominąc dla tego komponentu
