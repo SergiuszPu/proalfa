@@ -1,0 +1,30 @@
+:host {
+  display: block;
+  width: 50%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(250, 241, 231);
+  margin: 10px;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 12px;
+
+  ::slotted(img) {
+    max-height: 150px;
+    max-width: 100px;
+    border-radius: 20%;
+  }
+
+  .user-select {
+    background-color: rgb(250, 241, 231);
+  }
+}
+
+:host(.active) {
+  background-color: bisque;
+}
+
+:host(.hide) {
+  display: none;
+}

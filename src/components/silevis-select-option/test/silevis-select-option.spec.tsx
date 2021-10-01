@@ -9,10 +9,10 @@
 //     });
 
 //     expect(page.root).toEqualHtml(`
-//       <silevis-select-option class="options">
+//       <silevis-select-option class=\"options\">
 //         <mock:shadow-root>
 //           <slot name="image"></slot>
-//           <slot>slot/>
+//         <slot></slot>
 //         </mock:shadow-root>
 //       </silevis-select-option>
 //     `);

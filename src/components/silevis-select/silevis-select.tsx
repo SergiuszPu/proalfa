@@ -1,29 +1,29 @@
-import { Component, h, State, Listen, Element } from '@stencil/core';
+import { Component, h, State, Listen, Host } from '@stencil/core';
 
 @Component({
   tag: 'silevis-select',
-  styleUrl: 'silevis-select.css',
+  styleUrl: 'silevis-select.scss',
   shadow: true,
 })
 export class SilevisSelectComponent {
-  @State() selectedUser: string
-  @State() active = true;
-  @State() hide = false
-  @State() toggle = true;
+  @State() selectedUser: string;
+  @State() hidenUserSlot = false;
+  @State() expandUserList = true;
 
   private slottedElements: HTMLElement[] = [];
-  
+
   @Listen('silevisSelectActivated')
-  silevisSelectActivated(event: CustomEvent<any>) {
+  silevisSelectActivated(event: CustomEvent<HTMLElement>) {
     this.slottedElements.filter(slot => {
-      slot.setAttribute('active', 'false');
       if (slot === event.target) {
         slot.setAttribute('active', 'true');
+      } else {
+        slot.setAttribute('active', 'false');
       }
     });
   }
 
-  handleSlotChange = (event: Event) => {
+  private handleSlotChange = (event: Event) => {
     if (!(event.target instanceof HTMLSlotElement)) {
       return;
     }
@@ -32,46 +32,38 @@ export class SilevisSelectComponent {
     });
   };
 
-  searchUser(event) {
+  private searchUser(event) {
     this.selectedUser = event.target.value.toLowerCase();
     this.slottedElements.filter(slot => {
-      if ( !/\d/.test(this.selectedUser) && !slot.innerText.toLowerCase().includes(this.selectedUser)) {
-        slot.setAttribute('hide', 'true')
-      } else {
-        slot.setAttribute('hide', 'false')
-      }
+      const isHide = !/\d/.test(this.selectedUser) && !slot.innerText.toLowerCase().includes(this.selectedUser);
+      slot.setAttribute('hide', isHide ? 'true' : 'false');
     });
   }
-  
-  onToggle() {
-    this.toggle = !this.toggle;
+
+  private onToggle() {
+    this.expandUserList = !this.expandUserList;
   }
 
   render() {
-    if (this.toggle) {
-      return (
-        <div class="options">
-          <h1>Select User</h1>
+    return (
+      <Host>
+        <div class="select">
+          <h1>{this.expandUserList ? 'Select User' : '------------------'}</h1>
           <div class="arrow" onClick={() => this.onToggle()}>
-            &#8595;
+            {this.expandUserList ? '+' : '-'}
           </div>
         </div>
-      );
-    } else {
-      return (
-        <div>
-          <div class="options">
-            <h1>------------------</h1>
-            <div class="arrow" onClick={() => this.onToggle()}>
-              &#8593;
-            </div>
-          </div>
+        <div
+          class={{
+            hide: this.expandUserList,
+          }}
+        >
           <input type="text" value={this.selectedUser} onInput={event => this.searchUser(event)} />
           <slot onSlotchange={this.handleSlotChange}>
-            <h1>there is no option</h1>
+            <div class="no-options">There is no option</div>
           </slot>
         </div>
-      );
-    }
+      </Host>
+    );
   }
 }

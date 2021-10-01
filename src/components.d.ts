@@ -37,7 +37,7 @@ declare namespace LocalJSX {
     interface SilevisSelectOption {
         "active"?: boolean;
         "hide"?: boolean;
-        "onSilevisSelectActivated"?: (event: CustomEvent<any>) => void;
+        "onSilevisSelectActivated"?: (event: CustomEvent<HTMLElement>) => void;
     }
     interface IntrinsicElements {
         "silevis-select": SilevisSelect;

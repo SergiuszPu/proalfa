@@ -2,32 +2,38 @@ import { Component, h, Event, EventEmitter, Prop, Host } from '@stencil/core';
 
 @Component({
   tag: 'silevis-select-option',
-  styleUrl: 'silevis-select-option.css',
+  styleUrl: 'silevis-select-option.scss',
   shadow: true,
 })
 export class SilevisSelectOption {
-  @Event({ eventName: 'silevisSelectActivated' }) silevisSelectActivated: EventEmitter<any>;
-  @Prop({ mutable: true }) active: boolean;
-  @Prop() hide: boolean;
+  // set active attribute to user slot
+  @Prop({ mutable: true }) active = false;
 
-  handleChange() {
-    this.active = !this.active;
-    this.silevisSelectActivated.emit();
-  }
+  //hide and show user slot when filter
+  @Prop() hide = false;
+
+  //Emit clicked slot user
+  @Event() silevisSelectActivated: EventEmitter<HTMLElement>;
 
   render() {
     return (
-      <div
+      <Host
         onClick={() => this.handleChange()}
         class={{
-          options: true,
           active: this.active,
           hide: this.hide,
         }}
       >
         <slot name="image" />
-        <h1><slot></slot></h1>
-      </div>
+        <h1>
+          <slot></slot>
+        </h1>
+      </Host>
     );
+  }
+
+  private handleChange() {
+    this.active = !this.active;
+    this.silevisSelectActivated.emit();
   }
 }
