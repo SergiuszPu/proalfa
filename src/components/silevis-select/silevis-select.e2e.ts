@@ -81,25 +81,25 @@ describe('silevis-select', () => {
     await input.press('KeyJ');
     await input.press('KeyA');
     await input.press('KeyK');
-    
+
     let newValue = await input.getProperty('value');
-    expect(options[2].innerText.toLowerCase()).toContain(newValue)
+    expect(options[2].innerText.toLowerCase()).toContain(newValue);
   });
 
   it('should not find any options', async () => {
     const input = await Get.Input();
     const options = await Get.Options();
-    
+
     await select.click();
     await input.click();
     await input.press('KeyB');
     await input.press('KeyA');
     await input.press('KeyD');
-    
+
     let newValue = await input.getProperty('value');
-    options.forEach((option) => {
-      expect(option.innerText.toLowerCase()).not.toContain(newValue)
-    })
+    options.forEach(option => {
+      expect(option.innerText.toLowerCase()).not.toContain(newValue);
+    });
   });
 
   it('should search correct option', async () => {
@@ -124,23 +124,30 @@ describe('silevis-select', () => {
     expect(value).toBe('');
   });
 
-  describe('test select without options', () => {
-    const selectNoOptions = `
-  <silevis-select>
-  </silevis-select>;
-  `;
 
-    it('opened menu should show single option with text "There is no option"', async () => {
-      page = await newE2EPage();
-      await page.setContent(selectNoOptions);
-      select = await Get.Select();
-      const options = await Get.Options();
+  it('costammm', async () => {
+    const arrow = await Get.ArrowSelect();
+    console.log(arrow);
+    
+  });
+});
 
-      await select.click();
+describe('test select without options', () => {
+  const selectNoOptions = `
+<silevis-select>
+</silevis-select>;
+`;
 
-      const noOptionsElement = await Get.NoOptions();
-      expect(noOptionsElement.innerText).toBe('There is no option');
-      options.forEach(option => expect(option).toHaveClass('hide'));
-    });
+  it('opened menu should show single option with text "There is no option"', async () => {
+    page = await newE2EPage();
+    await page.setContent(selectNoOptions);
+    select = await Get.Select();
+    const options = await Get.Options();
+
+    await select.click();
+
+    const noOptionsElement = await Get.NoOptions();
+    expect(noOptionsElement.innerText).toBe('There is no option');
+    options.forEach(option => expect(option).toHaveClass('hide'));
   });
 });
